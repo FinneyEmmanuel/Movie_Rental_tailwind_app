@@ -2,8 +2,13 @@ import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getCustomer } from "../Service/customer";
+import { nanoid } from "@reduxjs/toolkit";
+import { useDispatch, useSelector } from "react-redux";
+import { addCustomer } from "../resources/customer/customerSlice";
+import { updateCustomer } from "../resources/customer/customerSlice";
+
 const schema = yup.object().shape({
   name: yup.string().min(3).max(20).required(),
   phone: yup.string().min(7).max(10).required(),
@@ -12,6 +17,8 @@ const schema = yup.object().shape({
 
 function TestForm() {
   const params = useParams();
+  const navigate = useNavigate();
+  const customers = useSelector((state) => state.customerReducer.customers);
 
   //   const customers = getCustomer();
 
@@ -20,7 +27,7 @@ function TestForm() {
     handleSubmit,
     formState: { errors },
     setValue,
-    reset,
+    // reset,
   } = useForm({
     resolver: yupResolver(schema),
   });
@@ -28,15 +35,30 @@ function TestForm() {
   useEffect(() => {
     const customerId = params.customerId;
     if (!customerId) return;
-    const customer = getCustomer(customerId);
+    const customer = customers.find((c) => c._id === params.customerId);
     if (!customer) return;
     setValue("name", customer.name);
     setValue("_id", customer._id);
     setValue("phone", customer.phone);
+    setValue("isGold", customer.isGold);
   });
+  const dispatch = useDispatch();
   const onSubmitHandler = (data) => {
     console.log({ data });
-    reset();
+    if (!data._id) {
+      dispatch(
+        addCustomer({
+          _id: nanoid,
+          name: data.name,
+          phone: data.phone,
+          isGold: data.isGold,
+        })
+      );
+      navigate("/Customers");
+    } else {
+      dispatch(updateCustomer(data));
+      navigate("/Customers");
+    }
   };
 
   return (

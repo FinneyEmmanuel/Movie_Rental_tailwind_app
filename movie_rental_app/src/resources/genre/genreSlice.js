@@ -13,8 +13,15 @@ export const genreSlice = createSlice({
       const index = state.genres.findIndex((g) => g._id === action.payload);
       state.genres.splice(index, 1);
     },
+    addGenre: (state, action) => {
+      state.genres.push(action.payload);
+    },
+    updateGenre: (state, action) => {
+      const index = state.genres.findIndex((g) => g._id === action.payload._id);
+      state.genres.splice(index, 1, action.payload);
+    },
   },
 });
 
-export const { deleteGenre } = genreSlice.actions;
+export const { deleteGenre, addGenre, updateGenre } = genreSlice.actions;
 export default genreSlice.reducer;

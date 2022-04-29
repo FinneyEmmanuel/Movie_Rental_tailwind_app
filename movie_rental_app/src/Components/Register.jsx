@@ -80,7 +80,7 @@ const Register = () => {
               />
               <p className="text-red-900">{errors.email?.message}</p>
             </div>
-            <div class="form-group mb-6">
+            <div className="form-group mb-6">
               <input
                 type="password"
                 class="form-control block
@@ -103,10 +103,10 @@ const Register = () => {
               />
               <p className="text-red-900">{errors.password?.message}</p>
             </div>
-            <div class="form-group mb-6">
+            <div className="form-group mb-6">
               <input
                 type="password"
-                class="form-control block
+                className="form-control block
         w-full
         px-3
         py-1.5
@@ -126,15 +126,15 @@ const Register = () => {
               />
               <p className="text-red-900">{errors.confirmPass?.message}</p>
             </div>
-            <div class="form-group form-check  mb-6">
+            <div className="form-group form-check  mb-6">
               <input
                 type="checkbox"
-                class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain mr-2 cursor-pointer"
+                className="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain mr-2 cursor-pointer"
                 id="exampleCheck25"
                 {...register("isAdmin")}
               />
               <label
-                class="form-check-label inline-block text-gray-800"
+                className="form-check-label inline-block text-gray-800"
                 for="exampleCheck25"
               >
                 is Admin
@@ -142,7 +142,7 @@ const Register = () => {
               <p className="text-red-900">{errors.isAdmin?.message}</p>
             </div>
             <button
-              class="
+              className="
       w-full
       px-6
       py-2.5

@@ -1,13 +1,16 @@
-import React, { useState } from "react";
-import { getCustomers } from "../Service/customer";
+import React from "react";
+//import { getCustomers } from "../Service/customer";
+import { deleteCustomer } from "../resources/customer/customerSlice";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 const Customers = () => {
-  const [customers, setCustomers] = useState(getCustomers());
-  function handleDelete(id) {
-    const customer = customers.filter((customers) => customers._id !== id);
-    setCustomers(customer);
-  }
+  const customers = useSelector((state) => state.customerReducer.customers);
+  const dispatch = useDispatch();
+  // function handleDelete(id) {
+  //   const customer = customers.filter((customers) => customers._id !== id);
+  //   setCustomers(customer);
+  // }
   return (
     <div className="h-screen bg-gradient-to-tl from-green-400 to-indigo-900 w-full py-16 px-10">
       <div className="ml-20 mr-20 mt-10">
@@ -56,7 +59,7 @@ const Customers = () => {
                   <td className="px-6 py-4">
                     <button
                       type="button"
-                      onClick={() => handleDelete(c._id)}
+                      onClick={() => dispatch(deleteCustomer(c._id))}
                       className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
                     >
                       Delete
@@ -65,18 +68,18 @@ const Customers = () => {
                 </tr>
               ))}
             </tbody>
-            <Link to="/customers/new">
-              {" "}
-              <button
-                className=" text-white bg-gradient-to-r from-red-400 
+          </table>
+          <Link to="/customers/new">
+            {" "}
+            <button
+              className=" text-white bg-gradient-to-r from-red-400 
                 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none 
                 focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-5
                  py-2.5 text-center mr-2 mb-2"
-              >
-                Add Customer
-              </button>{" "}
-            </Link>
-          </table>
+            >
+              Add Customer
+            </button>{" "}
+          </Link>
         </div>
       </div>
     </div>

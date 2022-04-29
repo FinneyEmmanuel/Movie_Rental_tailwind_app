@@ -2,21 +2,26 @@ import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { useParams } from "react-router-dom";
-import { getGenre } from "../Service/genre";
+import { useNavigate, useParams } from "react-router-dom";
+//import { getGenre } from "../Service/genre";
+import { useSelector, useDispatch } from "react-redux";
+import { nanoid } from "@reduxjs/toolkit";
+import { addGenre, updateGenre } from "../resources/genre/genreSlice";
+//import { useSelector } from "react-redux";
+
 const schema = yup.object().shape({
   name: yup.string().min(3).max(20).required(),
 });
 
 function Genreform() {
   const params = useParams();
-
+  const genres = useSelector((state) => state.genreReducer.genres);
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors },
     setValue,
-    reset,
   } = useForm({
     resolver: yupResolver(schema),
   });
@@ -24,14 +29,31 @@ function Genreform() {
   useEffect(() => {
     const genreId = params.genreId;
     if (!genreId) return;
-    const genre = getGenre(genreId);
+    const genre = genres.find((g) => g._id === params.genreId);
     if (!genre) return;
     setValue("name", genre.name);
     setValue("_id", genre._id);
   });
+
+  // useSelector(() => {
+  //   const genreId = params.genreId;
+  // });
+
+  const dispatch = useDispatch();
   const onSubmitHandler = (data) => {
     console.log({ data });
-    reset();
+    if (!data._id) {
+      dispatch(
+        addGenre({
+          _id: nanoid(),
+          name: data.name,
+        })
+      );
+      navigate("/Genres");
+    } else {
+      dispatch(updateGenre(data));
+      navigate("/Genres");
+    }
   };
 
   return (

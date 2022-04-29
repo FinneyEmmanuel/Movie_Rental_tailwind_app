@@ -5,7 +5,7 @@ function App() {
   return (
     <div className="App">
       <nav
-        class="bg-emerald-500 text-white flex justify-around items-center"
+        className="bg-emerald-500 text-white flex justify-around items-center"
         style={{ borderBottom: "solid 1px", paddingBottom: "1rem-0" }}
       >
         <span className="text-xl font-style: bold mt-1 ml-3 rounded-full">
@@ -39,7 +39,7 @@ function App() {
         </span>
         <input
           type="search"
-          class="form-control relative flex-justify-between px-3 py-1.5 mt-1 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+          className="form-control relative flex-justify-between px-3 py-1.5 mt-1 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
           placeholder="Search"
           aria-label="Search"
           aria-describedby="button-addon2"
@@ -53,7 +53,7 @@ function App() {
             focusable="false"
             data-prefix="fas"
             data-icon="search"
-            class="w-4"
+            className="w-4"
             role="img"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 512 512"
